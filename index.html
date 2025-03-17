@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reCAPTCHA v3 Demo</title>
+    <script src="https://www.google.com/recaptcha/api.js?render='6LfZifcqAAAAAMS-n-EHIIZTg-70UUs-HgJp4k_p'"></script>
+    <script>
+        function executeCaptcha() {
+            grecaptcha.ready(function() {
+                grecaptcha.execute('YOUR_SITE_KEY', {action: 'submit'}).then(function(token) {
+                    document.getElementById('recaptchaResponse').value = token;
+                    document.getElementById('captchaForm').submit();
+                });
+            });
+        }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>reCAPTCHA v3 Form</h2>
+    <form id="captchaForm" action="/verify_captcha" method="POST" onsubmit="event.preventDefault(); executeCaptcha();">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <input type="hidden" id="recaptchaResponse" name="recaptchaResponse">
+        <button type="submit">Submit</button>
+    </form>
+
+    <h3>Response:</h3>
+    <div id="responseMessage"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
